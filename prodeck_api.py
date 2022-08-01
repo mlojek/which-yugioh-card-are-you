@@ -27,3 +27,17 @@ def get_all_cards_info() -> list:
 
     # convert the response to a list and return:
     return json.loads(response.content.decode())['data']
+
+
+def process_cards_info(cards_info_list) -> list:
+    result = list()
+
+    for card in cards_info_list:
+        new_card = dict()
+        new_card['id'] = card['id']
+        new_card['name'] = card['name']
+        new_card['image_url'] = card['card_images'][0]['image_url']
+
+        result.append(new_card)
+
+    return result
