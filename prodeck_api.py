@@ -32,6 +32,7 @@ def get_all_cards_info() -> list:
 def process_cards_info(cards_info_list: list) -> list:
     result = list()
 
+    # only id, name, and image_url of the card is needed:
     for card in cards_info_list:
         new_card = dict()
         new_card['id'] = card['id']
