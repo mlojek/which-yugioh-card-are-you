@@ -17,13 +17,11 @@ def get_card_image(card_name, image_url):
         save_file.write(image)
 
 
-def get_all_cards():
+def get_all_cards_info() -> list:
     url = 'https://db.ygoprodeck.com/api/v7/cardinfo.php'
 
     # get all cards info
     response = requests.get(url)
 
-    # convert the response to a list:
-    all_cards = json.loads(response.content.decode())['data']
-
-    print(len(all_cards))
+    # convert the response to a list and return:
+    return json.loads(response.content.decode())['data']
