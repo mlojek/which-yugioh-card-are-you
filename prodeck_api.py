@@ -4,12 +4,12 @@ import os
 import requests
 
 
-def get_image(image_url) -> object:
+def get_image(image_url: str) -> object:
     response = requests.get(image_url)
     return response.content
 
 
-def save_image(save_path, file_name, image) -> None:
+def save_image(save_path: str, file_name: str, image: object) -> None:
     # check if save_path exists, if not create the directory:
     if not (os.path.exists(save_path) and os.path.isdir(save_path)):
         os.makedirs(save_path)
@@ -29,7 +29,7 @@ def get_all_cards_info() -> list:
     return json.loads(response.content.decode())['data']
 
 
-def process_cards_info(cards_info_list) -> list:
+def process_cards_info(cards_info_list: list) -> list:
     result = list()
 
     for card in cards_info_list:
