@@ -41,3 +41,8 @@ def process_cards_info(cards_info_list: list) -> list:
         result.append(new_card)
 
     return result
+
+
+def save_to_json(collection, save_path: str) -> None:
+    with open(save_path, 'w') as save_file:
+        save_file.write(json.dumps(collection, indent=4))
