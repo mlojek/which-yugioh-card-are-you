@@ -15,6 +15,7 @@ def get_image(image_url: str) -> object:
 
 
 def save_image(save_path: str, file_name: str, image: object) -> None:
+    'Save raw image data to a given file. Use with get_image'
     # check if save_path exists, if not create the directory:
     if not (os.path.exists(save_path) and os.path.isdir(save_path)):
         os.makedirs(save_path)
@@ -25,6 +26,7 @@ def save_image(save_path: str, file_name: str, image: object) -> None:
 
 
 def get_all_cards_info() -> list:
+    'Get info about all YGO cards'
     url = 'https://db.ygoprodeck.com/api/v7/cardinfo.php'
 
     # get all cards info
@@ -35,6 +37,7 @@ def get_all_cards_info() -> list:
 
 
 def process_cards_info(cards_info_list: list) -> list:
+    'Makes a new, simpler list of cards data'
     result = list()
 
     # only id, name, and image_url of the card is needed:
@@ -50,5 +53,6 @@ def process_cards_info(cards_info_list: list) -> list:
 
 
 def save_to_json(collection, save_path: str) -> None:
+    'Save a collection (list or dict) to a JSON file'
     with open(save_path, 'w') as save_file:
         save_file.write(json.dumps(collection, indent=4))
