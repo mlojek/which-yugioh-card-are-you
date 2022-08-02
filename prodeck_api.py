@@ -44,3 +44,12 @@ def save_to_json(collection, save_path: str) -> None:
     'Save a collection (list or dict) to a JSON file'
     with open(save_path, 'w') as save_file:
         save_file.write(json.dumps(collection, indent=4))
+
+
+def make_local_copy(data_dir: str) -> None:
+    'Makes a local copy of all cards info and images'
+    # get all cards data:
+    # make local data directory:
+    # save cards data to json:
+    # save all card images:
+    pass
