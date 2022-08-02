@@ -2,6 +2,7 @@ import json
 import os
 
 import requests
+from tqdm import tqdm
 
 
 def get_image(image_url: str) -> object:
@@ -52,13 +53,13 @@ def make_local_copy(data_dir: str) -> None:
     os.makedirs(data_dir)
 
     # get all cards info:
-    cards_info = get_all_cards_info()
+    cards = get_all_cards_info()
 
     # save cards data to json:
-    save_to_json(cards_info, os.path.join(data_dir, 'cards_data.json'))
+    save_to_json(cards, os.path.join(data_dir, 'cards_data.json'))
 
-    # save all card images:
-    for card in cards_info:
-        image = get_image(card['image_url'])
-        image_save_path = os.path.join(data_dir, str(card['id']) + '.jpg')
+    # save all card images, wrapped in a progress bar loop:
+    for i in tqdm(range(len(cards)), desc="Downloading images...", ncols=80):
+        image = get_image(cards[i]['image_url'])
+        image_save_path = os.path.join(data_dir, str(cards[i]['id']) + '.jpg')
         save_image(image, image_save_path)
