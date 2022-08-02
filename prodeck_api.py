@@ -14,14 +14,9 @@ def get_image(image_url: str) -> object:
         raise requests.HTTPError(f'Could not get data from url {image_url}, response status code {response.status_code}')
 
 
-def save_image(save_path: str, file_name: str, image: object) -> None:
+def save_image(image: object, save_path: str) -> None:
     'Save raw image data to a given file. Use with get_image'
-    # check if save_path exists, if not create the directory:
-    if not (os.path.exists(save_path) and os.path.isdir(save_path)):
-        os.makedirs(save_path)
-
-    # save the image:
-    with open(os.path.join(save_path, file_name), 'wb') as save_file:
+    with open(save_path, 'wb') as save_file:
         save_file.write(image)
 
 
