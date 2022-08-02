@@ -5,8 +5,13 @@ import requests
 
 
 def get_image(image_url: str) -> object:
+    'Get image from the given url, returns raw image data'
     response = requests.get(image_url)
-    return response.content
+
+    if response.status_code == 200:
+        return response.content
+    else:
+        raise requests.HTTPError(f'Could not get data from url {image_url}, response status code {response.status_code}')
 
 
 def save_image(save_path: str, file_name: str, image: object) -> None:
