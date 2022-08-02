@@ -26,22 +26,15 @@ def save_image(save_path: str, file_name: str, image: object) -> None:
 
 
 def get_all_cards_info() -> list:
-    'Get info about all YGO cards'
-    url = 'https://db.ygoprodeck.com/api/v7/cardinfo.php'
+    'Get names, ids and image urls of all yugioh cards'
+    # get all cards info:
+    response = requests.get('https://db.ygoprodeck.com/api/v7/cardinfo.php')
 
-    # get all cards info
-    response = requests.get(url)
-
-    # convert the response to a list and return:
-    return json.loads(response.content.decode())['data']
-
-
-def process_cards_info(cards_info_list: list) -> list:
-    'Makes a new, simpler list of cards data'
+    # resulting, simpler list of card data:
     result = list()
 
-    # only id, name, and image_url of the card is needed:
-    for card in cards_info_list:
+    # only id, name, and image_url of the card are needed:
+    for card in json.loads(response.content.decode())['data']:
         new_card = dict()
         new_card['id'] = card['id']
         new_card['name'] = card['name']
