@@ -48,8 +48,17 @@ def save_to_json(collection, save_path: str) -> None:
 
 def make_local_copy(data_dir: str) -> None:
     'Makes a local copy of all cards info and images'
-    # get all cards data:
-    # make local data directory:
+    # make the local data directory:
+    os.makedirs(data_dir)
+
+    # get all cards info:
+    cards_info = get_all_cards_info()
+
     # save cards data to json:
+    save_to_json(cards_info, os.path.join(data_dir, 'cards_data.json'))
+
     # save all card images:
-    pass
+    for card in cards_info:
+        image = get_image(card['image_url'])
+        image_save_path = os.path.join(data_dir, str(card['id']) + '.jpg')
+        save_image(image, image_save_path)
