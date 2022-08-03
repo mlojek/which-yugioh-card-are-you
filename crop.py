@@ -25,3 +25,17 @@ def filter_canny(image: np.ndarray) -> np.ndarray:
     canny = cv2.Canny(blurred, 30, 300)
 
     return cv2.cvtColor(canny, cv2.COLOR_GRAY2RGB)
+
+
+def draw_bounding_boxes(image: np.ndarray) -> np.ndarray:
+    'Detect contours in the image and draw their bounding boxes'
+    # detect contours, can only be done on a grayscale image:
+    gray = cv2.cvtColor(image.copy(), cv2.COLOR_RGB2GRAY)
+    (contours, _) = cv2.findContours(gray, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    # draw bounding boxes on the original image:
+    for cnt in contours:
+        x, y, w, h = cv2.boundingRect(cnt)
+        cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 1)
+
+    return image
