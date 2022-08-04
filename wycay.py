@@ -1,5 +1,6 @@
 import os
 import json
+import shutil
 
 from prodeck_api import make_local_copy
 
@@ -32,7 +33,11 @@ def check_local_card_data(dir: str) -> bool:
 
 
 if __name__ == '__main__':
-    # check for local card data
-    # if it's not there/not valid make a local copy:
+    # if local card data not there/not valid:
     if not check_local_card_data(CARD_DATA_DIR):
+        # if invalid:
+        if os.path.exists(CARD_DATA_DIR):
+            shutil.rmtree(CARD_DATA_DIR)
+
+        # make a local copy of card data:
         make_local_copy(CARD_DATA_DIR)
