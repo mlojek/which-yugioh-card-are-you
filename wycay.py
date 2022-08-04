@@ -1,6 +1,8 @@
 import os
 import json
 
+from prodeck_api import make_local_copy
+
 
 CARD_DATA_DIR = 'cards'
 
@@ -27,3 +29,10 @@ def check_local_card_data(dir: str) -> bool:
             return False
 
     return True
+
+
+if __name__ == '__main__':
+    # check for local card data
+    # if it's not there/not valid make a local copy:
+    if not check_local_card_data(CARD_DATA_DIR):
+        make_local_copy(CARD_DATA_DIR)
