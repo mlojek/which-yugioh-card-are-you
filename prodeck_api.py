@@ -12,7 +12,8 @@ def get_image(image_url: str) -> object:
     if response.status_code == 200:
         return response.content
     else:
-        raise requests.HTTPError(f'Could not get data from url {image_url}, response status code {response.status_code}')
+        raise requests.HTTPError(f'Could not get data from url {image_url},\
+                                 response status code {response.status_code}')
 
 
 def save_image(image: object, save_path: str) -> None:
