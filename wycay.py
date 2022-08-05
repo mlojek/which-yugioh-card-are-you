@@ -3,37 +3,12 @@ import shutil
 
 import cv2
 import numpy as np
-import pandas as pd
 from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
 
-from prodeck_api import make_local_copy
+from prodeck_api import make_local_copy, check_local_copy
 
 
 CARD_DATA_DIR = 'cards'
-
-
-def check_local_copy(dir: str) -> bool:
-    'Check the existence and validity of a local card data directory'
-    # check if the directory exists:
-    if not os.path.exists(dir) or not os.path.isdir(dir):
-        return False
-
-    # check if the cards_data.csv file exists:
-    csv_path = os.path.join(dir, 'cards_data.csv')
-    if not os.path.exists(csv_path) or not os.path.isfile(csv_path):
-        return False
-
-    # read in the contents of cards_data.csv:
-    cards_data = pd.read_csv(csv_path)
-
-    # check for every card image:
-    for _, card in cards_data.iterrows():
-        image_name = str(card['id']) + '.jpg'
-        image_path = os.path.join(dir, image_name)
-        if not os.path.exists(image_path) or not os.path.isfile(image_path):
-            return False
-
-    return True
 
 
 def extract_features_vgg16(image: np.ndarray) -> np.ndarray:
