@@ -23,24 +23,17 @@ def save_image(image: object, save_path: str) -> None:
         save_file.write(image)
 
 
-def get_all_cards_info() -> list:
+def get_all_cards_info() -> pd.DataFrame:
     'Get names, ids and image urls of all yugioh cards'
-    # get all cards info:
+    # get all cards info from the API:
     response = requests.get('https://db.ygoprodeck.com/api/v7/cardinfo.php')
 
-    # resulting, simpler list of card data:
-    result = list()
-
-    # only id, name, and image_url of the card are needed:
-    for card in json.loads(response.content.decode())['data']:
-        new_card = dict()
-        new_card['id'] = card['id']
-        new_card['name'] = card['name']
-        new_card['image_url'] = card['card_images'][0]['image_url']
-
-        result.append(new_card)
-
-    return result
+    # return data as a pandas dataframe
+    # only cards' ids, names and image url are really needed:
+    return pd.DataFrame(data=[[card['id'], card['name'], card['card_images'][0]['image_url']]
+                              for card in json.loads(response.content.decode())['data']],
+                        columns=['id', 'name', 'image_url'],
+                        dtype=str)
 
 
 def save_to_json(collection, save_path: str) -> None:
