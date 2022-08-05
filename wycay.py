@@ -12,7 +12,7 @@ from prodeck_api import make_local_copy
 CARD_DATA_DIR = 'cards'
 
 
-def check_local_card_data(dir: str) -> bool:
+def check_local_copy(dir: str) -> bool:
     'Check the existence and validity of a local card data directory'
     # check if the directory exists:
     if not os.path.exists(dir) or not os.path.isdir(dir):
@@ -58,7 +58,7 @@ def extract_features_vgg16(image: np.ndarray) -> np.ndarray:
 
 if __name__ == '__main__':
     # if local card data not there/not valid:
-    if not check_local_card_data(CARD_DATA_DIR):
+    if not check_local_copy(CARD_DATA_DIR):
         # if invalid:
         if os.path.exists(CARD_DATA_DIR):
             shutil.rmtree(CARD_DATA_DIR)
