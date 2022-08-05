@@ -55,14 +55,14 @@ def make_local_copy(data_dir: str) -> None:
         save_image(image, image_save_path)
 
 
-def check_local_copy(dir: str) -> bool:
+def check_local_copy(data_dir: str) -> bool:
     'Check the existence and validity of a local card data directory'
     # check if the directory exists:
-    if not os.path.exists(dir) or not os.path.isdir(dir):
+    if not os.path.exists(data_dir) or not os.path.isdir(data_dir):
         return False
 
     # check if the cards_data.csv file exists:
-    csv_path = os.path.join(dir, 'cards_data.csv')
+    csv_path = os.path.join(data_dir, 'cards_data.csv')
     if not os.path.exists(csv_path) or not os.path.isfile(csv_path):
         return False
 
@@ -72,7 +72,7 @@ def check_local_copy(dir: str) -> bool:
     # check for every card image:
     for _, card in cards_data.iterrows():
         image_name = str(card['id']) + '.jpg'
-        image_path = os.path.join(dir, image_name)
+        image_path = os.path.join(data_dir, image_name)
         if not os.path.exists(image_path) or not os.path.isfile(image_path):
             return False
 
