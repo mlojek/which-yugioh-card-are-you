@@ -61,10 +61,10 @@ def make_local_copy(data_dir: str) -> None:
 
     # get and save all card images, wrapped in a progress bar loop:
     for i in tqdm(range(len(cards)), desc="Downloading images...", ncols=80):
-        image = get_image(cards['image_url'].loc[i])
+        image_url = cards['image_url'].loc[i]
         image_save_path = os.path.join(data_dir, cards['id'].loc[i] + '.jpg')
 
-        save_image(image, image_save_path)
+        download_image(image_url, image_save_path)
 
 
 def check_local_copy(data_dir: str) -> bool:
