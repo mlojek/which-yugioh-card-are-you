@@ -6,23 +6,6 @@ import pandas as pd
 from tqdm import tqdm
 
 
-def get_image(image_url: str) -> bytes:
-    'Get image from the given url, returns raw image data'
-    response = requests.get(image_url)
-
-    if response.status_code == 200:
-        return response.content
-    else:
-        raise requests.HTTPError(f'Could not get data from url {image_url},\
-                                 response status code {response.status_code}')
-
-
-def save_image(image: object, save_path: str) -> None:
-    'Save raw image data to a given file. Use with get_image'
-    with open(save_path, 'wb') as save_file:
-        save_file.write(image)
-
-
 def download_image(image_url: str, save_path: str) -> None:
     'Download and save locally an image from the given url'
     response = requests.get(image_url)
