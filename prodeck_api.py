@@ -50,11 +50,12 @@ def make_local_copy(data_dir: str) -> None:
     # get all cards info:
     cards = get_all_cards_info()
 
-    # save cards data to json:
-    save_to_json(cards, os.path.join(data_dir, 'cards_data.json'))
+    # save cards data to csv:
+    cards.to_csv(os.path.join(data_dir, 'cards_data.csv'), index=False)
 
-    # save all card images, wrapped in a progress bar loop:
+    # get and save all card images, wrapped in a progress bar loop:
     for i in tqdm(range(len(cards)), desc="Downloading images...", ncols=80):
-        image = get_image(cards[i]['image_url'])
-        image_save_path = os.path.join(data_dir, str(cards[i]['id']) + '.jpg')
+        image = get_image(cards['image_url'].loc[i])
+        image_save_path = os.path.join(data_dir, cards['id'].loc[i] + '.jpg')
+
         save_image(image, image_save_path)
