@@ -3,7 +3,7 @@ import shutil
 
 import cv2
 import numpy as np
-from tensorflow.keras.applications import vgg16, resnet50
+from tensorflow.keras.applications import vgg16, resnet50, mobilenet
 
 from prodeck_api import make_local_copy, check_local_copy
 from config import CARD_DATA_DIR
@@ -49,6 +49,26 @@ def extract_features_resnet50(image: np.ndarray) -> np.ndarray:
     return model.predict(x).flatten()
 
 
+def extract_features_mobilenet(image: np.ndarray) -> np.ndarray:
+    '''
+    Extract features from a given image using a pretrained mobilenet model.
+    Input shape does not matter, but the output will always be (50176,).
+    '''
+    # initialize the model:
+    model = mobilenet.MobileNet(weights='imagenet', include_top=False)
+
+    # resize the image to match the model's input size:
+    img = cv2.resize(image, (224, 224), interpolation=cv2.INTER_LINEAR)
+
+    # necessary preprocessing:
+    x = np.array(img)
+    x = np.expand_dims(x, axis=0)
+    x = mobilenet.preprocess_input(x)
+
+    # predict the features and return:
+    return model.predict(x).flatten()
+
+
 if __name__ == '__main__':
     # if local card data not there/not valid:
     if not check_local_copy(CARD_DATA_DIR):
@@ -65,4 +85,5 @@ if __name__ == '__main__':
 
     # extract features from the image:
     # print(extract_features_vgg16(cropped))
-    print(extract_features_resnet50(cropped))
+    # print(extract_features_resnet50(cropped))
+    print(extract_features_mobilenet(cropped))
