@@ -3,7 +3,7 @@ import shutil
 
 import cv2
 import numpy as np
-from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
+from tensorflow.keras.applications import vgg16
 
 from prodeck_api import make_local_copy, check_local_copy
 from config import CARD_DATA_DIR
@@ -15,7 +15,7 @@ def extract_features_vgg16(image: np.ndarray) -> np.ndarray:
     Input shape does not matter, but the output will always be (25088,).
     '''
     # initialize the model:
-    model = VGG16(weights='imagenet', include_top=False)
+    model = vgg16.VGG16(weights='imagenet', include_top=False)
 
     # resize the image to match the model's input size:
     img = cv2.resize(image, (224, 224), interpolation=cv2.INTER_LINEAR)
@@ -23,7 +23,7 @@ def extract_features_vgg16(image: np.ndarray) -> np.ndarray:
     # necessary preprocessing:
     x = np.array(img)
     x = np.expand_dims(x, axis=0)
-    x = preprocess_input(x)
+    x = vgg16.preprocess_input(x)
 
     # predict the features and return:
     return model.predict(x).flatten()
