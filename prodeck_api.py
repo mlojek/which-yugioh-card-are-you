@@ -23,6 +23,18 @@ def save_image(image: object, save_path: str) -> None:
         save_file.write(image)
 
 
+def download_image(image_url: str, save_path: str) -> None:
+    'Download and save locally an image from the given url'
+    response = requests.get(image_url)
+
+    if response.status_code == 200:
+        with open(save_path, 'wb') as save_file:
+            save_file.write(response.content)
+    else:
+        raise requests.HTTPError(f'Could not get data from url {image_url},\
+                                 response status code {response.status_code}')
+
+
 def get_all_cards_info() -> pd.DataFrame:
     'Get names, ids and image urls of all yugioh cards'
     # get all cards info from the API:
