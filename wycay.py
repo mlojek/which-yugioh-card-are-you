@@ -1,9 +1,9 @@
 import os
-import json
 import shutil
 
 import cv2
 import numpy as np
+import pandas as pd
 from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input
 
 from prodeck_api import make_local_copy
@@ -18,17 +18,17 @@ def check_local_card_data(dir: str) -> bool:
     if not os.path.exists(dir) or not os.path.isdir(dir):
         return False
 
-    # check if the cards_data.json file exists:
-    json_path = os.path.join(dir, 'cards_data.json')
-    if not os.path.exists(json_path) or not os.path.isfile(json_path):
+    # check if the cards_data.csv file exists:
+    csv_path = os.path.join(dir, 'cards_data.csv')
+    if not os.path.exists(csv_path) or not os.path.isfile(csv_path):
         return False
 
-    # read in the contents of cards_data.json:
-    cards_data = json.load(open(json_path, 'r'))
+    # read in the contents of cards_data.csv:
+    cards_data = pd.read_csv(csv_path)
 
     # check for every card image:
-    for card in cards_data:
-        image_name = '{}.jpg'.format(card['id'])
+    for _, card in cards_data.iterrows():
+        image_name = str(card['id']) + '.jpg'
         image_path = os.path.join(dir, image_name)
         if not os.path.exists(image_path) or not os.path.isfile(image_path):
             return False
