@@ -2,10 +2,11 @@ import json
 import os
 
 import requests
+import pandas as pd
 from tqdm import tqdm
 
 
-def get_image(image_url: str) -> object:
+def get_image(image_url: str) -> bytes:
     'Get image from the given url, returns raw image data'
     response = requests.get(image_url)
 
