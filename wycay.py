@@ -3,6 +3,7 @@ import shutil
 
 import cv2
 import numpy as np
+import pandas as pd
 from tensorflow.keras.applications import vgg16, resnet50, mobilenet
 
 from prodeck_api import make_local_copy, check_local_copy
