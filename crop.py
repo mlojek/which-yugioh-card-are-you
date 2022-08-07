@@ -57,3 +57,15 @@ def draw_bounding_boxes(image: np.ndarray) -> np.ndarray:
         cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
     return image
+
+
+def dumb_crop(image: np.ndarray) -> np.ndarray:
+    'Crops the card image the dumb way (with constant values)'
+    # get image shape:
+    image_shape = np.shape(image)
+
+    # if image big enough crop, else just upscale and return
+    if image_shape[0] < 435 or image_shape[1] < 370:
+        return cv2.resize(image, (224, 224), interpolation=cv2.INTER_LINEAR)
+    else:
+        return image[110:435, 50:370]
