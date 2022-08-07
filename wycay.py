@@ -56,7 +56,7 @@ def predict_imagenet_classes(model: callable, preprocess_function: callable, ima
     return net.predict(x).flatten()
 
 
-def find_closest_neighbor(model: callable, preprocess_function: callable, data_dir: str, image: np.ndarray) -> np.ndarray:
+def find_closest_neighbor_by_features(model: callable, preprocess_function: callable, data_dir: str, image: np.ndarray) -> np.ndarray:
     # initialize the model:
     net = model(weights='imagenet', include_top=False)
 
@@ -138,14 +138,16 @@ if __name__ == '__main__':
     #                        cropped.copy()))
 
     # predict imagenet classes:
-    classes = predict_imagenet_classes(vgg16.VGG16,
-                                       vgg16.preprocess_input,
-                                       cropped.copy())
+    # classes = predict_imagenet_classes(vgg16.VGG16,
+    #                                    vgg16.preprocess_input,
+    #                                    cropped.copy())
 
-    print(np.shape(classes))
-    print(np.sum(classes))
-    print(np.sort(classes, axis=-1, kind='quicksort')[990:])
+    # print(np.shape(classes))
+    # print(np.sum(classes))
+    # print(np.sort(classes, axis=-1, kind='quicksort')[990:])
 
     # # find the closest neighbor of charmander.jpg:
-    # print(find_closest_neighbor(vgg16.VGG16, vgg16.preprocess_input,
-    #                             CARD_DATA_DIR, cv2.imread('charmander.jpg')))
+    # print(find_closest_neighbor_by_features(vgg16.VGG16,
+    #                                         vgg16.preprocess_input,
+    #                                         CARD_DATA_DIR,
+    #                                         cv2.imread('charmander.jpg')))
