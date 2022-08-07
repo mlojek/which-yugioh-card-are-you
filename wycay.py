@@ -7,6 +7,7 @@ import pandas as pd
 from tensorflow.keras.applications import vgg16, resnet50, mobilenet
 
 from prodeck_api import make_local_copy, check_local_copy
+from crop import dumb_crop
 from config import CARD_DATA_DIR, CARD_DATA_FILE
 
 
