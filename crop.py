@@ -66,6 +66,6 @@ def dumb_crop(image: np.ndarray) -> np.ndarray:
 
     # if image big enough crop, else just upscale and return
     if image_shape[0] < 435 or image_shape[1] < 370:
-        return cv2.resize(image, (224, 224), interpolation=cv2.INTER_LINEAR)
+        return cv2.resize(image, (325, 320), interpolation=cv2.INTER_LINEAR)
     else:
         return image[110:435, 50:370]
