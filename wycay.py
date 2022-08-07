@@ -83,12 +83,8 @@ def find_closest_neighbor_by_features(model: callable, preprocess_function: call
         # read in the card image:
         card_image = cv2.imread(os.path.join(data_dir, image_name))
 
-        # one of the card images is too small and could possibly cause an error:
-        if np.shape(card_image)[0] < 435 or np.shape(card_image)[1] < 370:
-            continue
-
         # crop card image:
-        cropped = card_image[110:435, 50:370]
+        cropped = dumb_crop(card_image)
 
         # extract card's features:
         img = cv2.resize(cropped, (224, 224), interpolation=cv2.INTER_LINEAR)
@@ -147,8 +143,8 @@ if __name__ == '__main__':
     # print(np.sum(classes))
     # print(np.sort(classes, axis=-1, kind='quicksort')[990:])
 
-    # # find the closest neighbor of charmander.jpg:
-    # print(find_closest_neighbor_by_features(vgg16.VGG16,
-    #                                         vgg16.preprocess_input,
-    #                                         CARD_DATA_DIR,
-    #                                         cv2.imread('charmander.jpg')))
+    # find the closest neighbor of charmander.jpg:
+    print(find_closest_neighbor_by_features(vgg16.VGG16,
+                                            vgg16.preprocess_input,
+                                            CARD_DATA_DIR,
+                                            cv2.imread('charmander.jpg')))
