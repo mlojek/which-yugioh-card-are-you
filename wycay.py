@@ -36,6 +36,26 @@ def extract_features(model: callable, preprocess_function: callable, image: np.n
     return net.predict(x).flatten()
 
 
+def predict_imagenet_classes(model: callable, preprocess_function: callable, image:np.ndarray) -> np.ndarray:
+    '''
+    Predict imagenet set classes for a given image using a given model.
+    Regardless of the model used the ouput will always have shape (1000)
+    '''
+    # initialize the model:
+    net = model(weights='imagenet')
+
+    # resize the image to match the model's input size:
+    img = cv2.resize(image, (224, 224), interpolation=cv2.INTER_LINEAR)
+
+    # necessary preprocessing:
+    x = np.array(img)
+    x = np.expand_dims(x, axis=0)
+    x = preprocess_function(x)
+
+    # predict the features and return:
+    return net.predict(x).flatten()
+
+
 def find_closest_neighbor(model: callable, preprocess_function: callable, data_dir: str, image: np.ndarray) -> np.ndarray:
     # initialize the model:
     net = model(weights='imagenet', include_top=False)
@@ -117,5 +137,15 @@ if __name__ == '__main__':
     #                        mobilenet.preprocess_input,
     #                        cropped.copy()))
 
-    # find the closest neighbor of charmander.jpg:
-    print(find_closest_neighbor(vgg16.VGG16, vgg16.preprocess_input, CARD_DATA_DIR, cv2.imread('charmander.jpg')))
+    # predict imagenet classes:
+    classes = predict_imagenet_classes(vgg16.VGG16,
+                                       vgg16.preprocess_input,
+                                       cropped.copy())
+
+    print(np.shape(classes))
+    print(np.sum(classes))
+    print(np.sort(classes, axis=-1, kind='quicksort')[990:])
+
+    # # find the closest neighbor of charmander.jpg:
+    # print(find_closest_neighbor(vgg16.VGG16, vgg16.preprocess_input,
+    #                             CARD_DATA_DIR, cv2.imread('charmander.jpg')))
