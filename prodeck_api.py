@@ -5,6 +5,8 @@ import requests
 import pandas as pd
 from tqdm import tqdm
 
+from config import CARD_DATA_FILE
+
 
 def download_image(image_url: str, save_path: str) -> None:
     'Download and save locally an image from the given url'
@@ -40,7 +42,7 @@ def make_local_copy(data_dir: str) -> None:
     cards = get_all_cards_info()
 
     # save cards data to csv:
-    cards.to_csv(os.path.join(data_dir, 'cards_data.csv'), index=False)
+    cards.to_csv(os.path.join(data_dir, CARD_DATA_FILE), index=False)
 
     # get and save all card images, wrapped in a progress bar loop:
     for i in tqdm(range(len(cards)), desc="Downloading images...", ncols=80):
@@ -56,12 +58,12 @@ def check_local_copy(data_dir: str) -> bool:
     if not os.path.exists(data_dir) or not os.path.isdir(data_dir):
         return False
 
-    # check if the cards_data.csv file exists:
-    csv_path = os.path.join(data_dir, 'cards_data.csv')
+    # check if the card data file exists:
+    csv_path = os.path.join(data_dir, CARD_DATA_FILE)
     if not os.path.exists(csv_path) or not os.path.isfile(csv_path):
         return False
 
-    # read in the contents of cards_data.csv:
+    # read in the contents of card data file:
     cards_data = pd.read_csv(csv_path)
 
     # check for every card image:

@@ -7,7 +7,7 @@ import pandas as pd
 from tensorflow.keras.applications import vgg16, resnet50, mobilenet
 
 from prodeck_api import make_local_copy, check_local_copy
-from config import CARD_DATA_DIR
+from config import CARD_DATA_DIR, CARD_DATA_FILE
 
 
 def extract_features(model: callable, preprocess_function: callable, image: np.ndarray) -> np.ndarray:
@@ -52,7 +52,7 @@ def find_closest_neighbor(model: callable, preprocess_function: callable, data_d
     closest_value = np.inf
 
     # read in card data:
-    cards = pd.read_csv(os.path.join(data_dir, 'cards_data.csv'))
+    cards = pd.read_csv(os.path.join(data_dir, CARD_DATA_FILE))
 
     # find the closest match:
     for index, row in cards.iterrows():
