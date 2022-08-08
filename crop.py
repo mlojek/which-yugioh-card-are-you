@@ -59,6 +59,13 @@ def draw_bounding_boxes(image: np.ndarray) -> np.ndarray:
     return image
 
 
+def draw_dumb_box(image: np.ndarray) -> np.ndarray:
+    'Draw a bounding box around the card image the dumb way'
+    cv2.rectangle(image, (50, 110), (370, 435), (0, 255, 0), 2)
+
+    return image
+
+
 def dumb_crop(image: np.ndarray) -> np.ndarray:
     'Crops the card image the dumb way (with constant values)'
     # get image shape:
