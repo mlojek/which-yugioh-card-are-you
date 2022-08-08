@@ -57,7 +57,59 @@ def predict_imagenet_classes(model: callable, preprocess_function: callable, ima
     return net.predict(x).flatten()
 
 
-def find_closest_neighbor_by_features(model: callable, preprocess_function: callable, data_dir: str, image: np.ndarray) -> np.ndarray:
+def predict_imagenet_classes_dir(model: callable, preprocess_function: callable, data_dir: str, image: np.ndarray) -> tuple:
+    # initialize the model:
+    net = model(weights='imagenet')
+
+    # extract features from the image:
+    img = cv2.resize(image, (224, 224), interpolation=cv2.INTER_LINEAR)
+    x = np.array(img)
+    x = np.expand_dims(x, axis=0)
+    x = preprocess_function(x)
+    image_features = net.predict(x).flatten()
+
+    # setup variables for finding the best match:
+    closest_name = 'none'
+    closest_value = np.inf
+
+    # read in card data:
+    cards = pd.read_csv(os.path.join(data_dir, CARD_DATA_FILE))
+
+    # find the closest match:
+    for index, row in cards.iterrows():
+        # card image file name:
+        image_name = str(row['id']) + '.jpg'
+
+        # read in the card image:
+        card_image = cv2.imread(os.path.join(data_dir, image_name))
+
+        # crop card image:
+        cropped = dumb_crop(card_image)
+
+        # extract card's features:
+        img = cv2.resize(cropped, (224, 224), interpolation=cv2.INTER_LINEAR)
+        x = np.array(img)
+        x = np.expand_dims(x, axis=0)
+        x = preprocess_function(x)
+        card_features = net.predict(x).flatten()
+
+        # compare image and card features:
+        distance = sum((image_features - card_features)**2)
+
+        # if the distance is a new record, make it the new best match:
+        if distance < closest_value:
+            closest_name = image_name
+            closest_value = distance
+
+        # print name and distance:
+        print(f'{index}\t{image_name}\t{distance}')
+        print(f'current closest: {closest_name}')
+
+    # return info about the closest match:
+    return closest_name, closest_value
+
+
+def find_closest_neighbor_by_features(model: callable, preprocess_function: callable, data_dir: str, image: np.ndarray) -> tuple:
     # initialize the model:
     net = model(weights='imagenet', include_top=False)
 
@@ -144,7 +196,13 @@ if __name__ == '__main__':
     # print(np.sort(classes, axis=-1, kind='quicksort')[990:])
 
     # find the closest neighbor of charmander.jpg:
-    print(find_closest_neighbor_by_features(vgg16.VGG16,
-                                            vgg16.preprocess_input,
-                                            CARD_DATA_DIR,
-                                            cv2.imread('charmander.jpg')))
+    # print(find_closest_neighbor_by_features(vgg16.VGG16,
+    #                                         vgg16.preprocess_input,
+    #                                         CARD_DATA_DIR,
+    #                                         cv2.imread('charmander.jpg')))
+
+
+    print(predict_imagenet_classes_dir(vgg16.VGG16,
+                                       vgg16.preprocess_input,
+                                       CARD_DATA_DIR,
+                                       cv2.imread('charmander.jpg')))
