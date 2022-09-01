@@ -15,11 +15,11 @@ Since every card is its own class, there is no point in retraining the net's top
 
 ## Results charmander:
 
-| Model used    | include_top = True                            | include_top = False                           |
-|---------------|-----------------------------------------------|-----------------------------------------------|
-| VGG16         | <img src="https://images.ygoprodeck.com/images/cards/52155219.jpg" width="200"/>   | <img src="cards/24082387.jpg" width="200"/>   |
-| ResNet50      | <img src="cards/58873391.jpg" width="200"/>   | <img src="cards/57523313.jpg" width="200"/>   |
-| MobileNet     | <img src="cards/52158283.jpg" width="200"/>   | <img src="cards/15052462.jpg" width="200"/>   |
+| Model used    | include_top = True                                                                | include_top = False                                                               |
+|---------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| VGG16         | <img src="https://images.ygoprodeck.com/images/cards/52155219.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/24082387.jpg" width="200"/>  |
+| ResNet50      | <img src="https://images.ygoprodeck.com/images/cards/58873391.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/57523313.jpg" width="200"/>  |
+| MobileNet     | <img src="https://images.ygoprodeck.com/images/cards/52158283.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/15052462.jpg" width="200"/>  |
 
 ## Results fresh cut:
 
