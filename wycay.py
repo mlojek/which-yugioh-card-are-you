@@ -110,58 +110,6 @@ def predict_imagenet_classes_dir(model: callable, preprocess_function: callable,
     return closest_name, closest_value
 
 
-def find_closest_neighbor_by_features(model: callable, preprocess_function: callable, data_dir: str, image: np.ndarray) -> tuple:
-    # initialize the model:
-    net = model(weights='imagenet', include_top=False)
-
-    # extract features from the image:
-    img = cv2.resize(image, (224, 224), interpolation=cv2.INTER_LINEAR)
-    x = np.array(img)
-    x = np.expand_dims(x, axis=0)
-    x = preprocess_function(x)
-    image_features = net.predict(x).flatten()
-
-    # setup variables for finding the best match:
-    closest_name = 'none'
-    closest_value = np.inf
-
-    # read in card data:
-    cards = pd.read_csv(os.path.join(data_dir, CARD_DATA_FILE))
-
-    # find the closest match:
-    for index, row in cards.iterrows():
-        # card image file name:
-        image_name = str(row['id']) + '.jpg'
-
-        # read in the card image:
-        card_image = cv2.imread(os.path.join(data_dir, image_name))
-
-        # crop card image:
-        cropped = dumb_crop(card_image)
-
-        # extract card's features:
-        img = cv2.resize(cropped, (224, 224), interpolation=cv2.INTER_LINEAR)
-        x = np.array(img)
-        x = np.expand_dims(x, axis=0)
-        x = preprocess_function(x)
-        card_features = net.predict(x).flatten()
-
-        # compare image and card features:
-        distance = sum((image_features - card_features)**2)
-
-        # if the distance is a new record, make it the new best match:
-        if distance < closest_value:
-            closest_name = image_name
-            closest_value = distance
-
-        # print name and distance:
-        print(f'{index}\t{image_name}\t{distance}')
-        print(f'current closest: {closest_name}')
-
-    # return info about the closest match:
-    return closest_name, closest_value
-
-
 def find_closest(model: callable, preprocess_function: callable, include_top_: bool, data_dir_path: str, image_path: str, crop_function: callable) -> str:
     # initialize the model:
     net = model(weights='imagenet', include_top=include_top_)
