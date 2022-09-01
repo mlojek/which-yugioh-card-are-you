@@ -116,39 +116,9 @@ if __name__ == '__main__':
         # make a local copy of card data:
         make_local_copy(CARD_DATA_DIR)
 
-    # crop the card portrait:
-    image = cv2.imread('cards/2511.jpg')
-    cropped = image[110:435, 50:370]
-
-    # # extract features from images using various models:
-    # print(extract_features(vgg16.VGG16,
-    #                        vgg16.preprocess_input,
-    #                        cropped.copy()))
-    # print(extract_features(resnet50.ResNet50,
-    #                        resnet50.preprocess_input,
-    #                        cropped.copy()))
-    # print(extract_features(mobilenet.MobileNet,
-    #                        mobilenet.preprocess_input,
-    #                        cropped.copy()))
-
-    # predict imagenet classes:
-    # classes = predict_imagenet_classes(vgg16.VGG16,
-    #                                    vgg16.preprocess_input,
-    #                                    cropped.copy())
-
-    # print(np.shape(classes))
-    # print(np.sum(classes))
-    # print(np.sort(classes, axis=-1, kind='quicksort')[990:])
-
-    # find the closest neighbor of charmander.jpg:
-    # print(find_closest_neighbor_by_features(vgg16.VGG16,
-    #                                         vgg16.preprocess_input,
-    #                                         CARD_DATA_DIR,
-    #                                         cv2.imread('charmander.jpg')))
-
-    # print(predict_imagenet_classes_dir(vgg16.VGG16,
-    #                                    vgg16.preprocess_input,
-    #                                    CARD_DATA_DIR,
-    #                                    cv2.imread('images/charmander.jpg')))
-
-    print(find_closest(vgg16.VGG16, vgg16.preprocess_input, True, CARD_DATA_DIR, 'images/charmander.jpg', dumb_crop))
+    print(find_closest(vgg16.VGG16,
+                       vgg16.preprocess_input,
+                       True,
+                       CARD_DATA_DIR,
+                       'images/charmander.jpg',
+                       dumb_crop))
