@@ -23,6 +23,12 @@ Since every card is its own class, there is no point in retraining the net's top
 
 ## Results fresh cut:
 
+| Model used    | include_top = True                            | include_top = False                           |
+|---------------|-----------------------------------------------|-----------------------------------------------|
+| VGG16         | <img src="cards/.jpg" width="200"/>   | <img src="cards/.jpg" width="200"/>   |
+| ResNet50      | <img src="cards/.jpg" width="200"/>   | <img src="cards/.jpg" width="200"/>   |
+| MobileNet     | <img src="cards/.jpg" width="200"/>   | <img src="cards/.jpg" width="200"/>   |
+
 ## Final thoughts:
 
 ## Credits and resources:
