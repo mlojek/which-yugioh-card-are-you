@@ -205,4 +205,4 @@ if __name__ == '__main__':
     print(predict_imagenet_classes_dir(vgg16.VGG16,
                                        vgg16.preprocess_input,
                                        CARD_DATA_DIR,
-                                       cv2.imread('charmander.jpg')))
+                                       cv2.imread('images/charmander.jpg')))
