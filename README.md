@@ -47,7 +47,9 @@ Test image:
 | MobileNet     | <img src="https://images.ygoprodeck.com/images/cards/8842266.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/101109090.jpg" width="200"/>   |
 
 ## Conclusions:
+The results for `charmander.jpg` image are really good, since 5 out of 6 images represent an animate character. What's more, 4 out of these 5 also face left, and the other one is a dragon, just like charmander. The odd one: `Light effigy` can be considered an understandable mistake, since it features a few ovals, and charmander's body is mostly composed of oval shapes.
 
+The results for `a-fresh-cut.png` image however leave a lot to be desired. Three of them are mostly dark images, but without any similarities in shapes or features. The same `Light effigy` image appears (curiously for the same model cofigurations), which is again understandable considering that a human face features a few ovals. `Shock troops` seems to share no similarities whatsoever, in shape nor in colour. Finally `Poison of the old man` represents a humanoid persona, also facing 'the camera', but lacks any significant similarities. The biggest dissapointment is no match to `The pot of greed`, since one could argue that the man in the video actually looks like the card.
 
 ## Credits and resources:
 - [The "pot of greed" meme](https://youtu.be/4guF2x-mzBI?t=247). This is where I saw it for the first time, although it's not the meme's origin. I couldn't find the original.
