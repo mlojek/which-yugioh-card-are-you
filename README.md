@@ -32,7 +32,7 @@ Test image:
 | ResNet50      | <img src="https://images.ygoprodeck.com/images/cards/38528901.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/73680966.jpg" width="200"/>  |
 | MobileNet     | <img src="https://images.ygoprodeck.com/images/cards/41927278.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/101109090.jpg" width="200"/>   |
 
-## Final thoughts:
+## Conclusions:
 
 ## Credits and resources:
 - [The "pot of greed" meme](https://youtu.be/4guF2x-mzBI?t=247). This is where I saw it for the first time, although it's not the meme's origin. I couldn't find the original.
