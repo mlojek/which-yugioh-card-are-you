@@ -42,9 +42,9 @@ Test image:
 
 | Model used    | include_top = True                                                                | include_top = False                                                               |
 |---------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| VGG16         | <img src="https://images.ygoprodeck.com/images/cards/.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/.jpg" width="200"/>  |
-| ResNet50      | <img src="https://images.ygoprodeck.com/images/cards/.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/.jpg" width="200"/>  |
-| MobileNet     | <img src="https://images.ygoprodeck.com/images/cards/.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/.jpg" width="200"/>   |
+| VGG16         | <img src="https://images.ygoprodeck.com/images/cards/44209392.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/54766667.jpg" width="200"/>  |
+| ResNet50      | <img src="https://images.ygoprodeck.com/images/cards/38528901.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/73680966.jpg" width="200"/>  |
+| MobileNet     | <img src="https://images.ygoprodeck.com/images/cards/8842266.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/101109090.jpg" width="200"/>   |
 
 ## Conclusions:
 
