@@ -63,7 +63,8 @@ def find_closest(model: callable, preprocess_function: callable, include_top_: b
 
 if __name__ == '__main__':
     # parse CLI arguments:
-    parser = argparse.ArgumentParser(description="See which Yu-Gi-Oh! card you look like.")
+    parser = argparse.ArgumentParser(description='See which Yu-Gi-Oh! card you look like.')
+    parser.add_argument('--include_top', action='store_true', help='include top of the model')
     parser.add_argument('image_path', type=str, help='path to the input image')
     args = parser.parse_args()
 
@@ -87,7 +88,7 @@ if __name__ == '__main__':
 
     print(find_closest(mobilenet.MobileNet,
                        mobilenet.preprocess_input,
-                       True,
+                       args.include_top,
                        CARD_DATA_DIR,
                        args.image_path,
                        dumb_crop))
