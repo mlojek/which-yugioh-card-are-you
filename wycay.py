@@ -69,7 +69,7 @@ if __name__ == '__main__':
     parser.add_argument('image_path', type=str, help='path to the input image')
     args = parser.parse_args()
 
-    # if local card data not there/not valid:
+    # check local card data:
     if not check_local_copy(CARD_DATA_DIR):
         # if invalid:
         if os.path.exists(CARD_DATA_DIR):
