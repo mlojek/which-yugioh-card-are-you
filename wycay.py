@@ -1,5 +1,6 @@
 import os
 import shutil
+import argparse
 
 import cv2
 import numpy as np
@@ -61,6 +62,11 @@ def find_closest(model: callable, preprocess_function: callable, include_top_: b
 
 
 if __name__ == '__main__':
+    # parse CLI arguments:
+    parser = argparse.ArgumentParser(description="See which Yu-Gi-Oh! card you look like.")
+    parser.add_argument('image_path', type=str, help='path to the input image')
+    args = parser.parse_args()
+
     # if local card data not there/not valid:
     if not check_local_copy(CARD_DATA_DIR):
         # if invalid:
@@ -83,5 +89,5 @@ if __name__ == '__main__':
                        mobilenet.preprocess_input,
                        True,
                        CARD_DATA_DIR,
-                       'images/charmander.jpg',
+                       args.image_path,
                        dumb_crop))
