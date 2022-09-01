@@ -64,6 +64,7 @@ def find_closest(model: callable, preprocess_function: callable, include_top_: b
 if __name__ == '__main__':
     # parse CLI arguments:
     parser = argparse.ArgumentParser(description='See which Yu-Gi-Oh! card you look like.')
+    parser.add_argument('model', type=str, help='name of NN model to use [vgg16/resnet50/mobilenet]')
     parser.add_argument('--include-top', action='store_true', help='include top of the model')
     parser.add_argument('image_path', type=str, help='path to the input image')
     args = parser.parse_args()
@@ -77,17 +78,22 @@ if __name__ == '__main__':
         # make a local copy of card data:
         make_local_copy(CARD_DATA_DIR)
 
-    # vgg16.VGG16,
-    # vgg16.preprocess_input,
+    # select model according to the CLI arg:
+    if args.model == 'vgg16':
+        model = vgg16.VGG16
+        preprocess_fun = vgg16.preprocess_input
+    elif args.model == 'resnet50':
+        model = resnet50.ResNet50
+        preprocess_fun = resnet50.preprocess_input
+    elif args.model == 'mobilenet':
+        model = mobilenet.MobileNet
+        preprocess_fun = mobilenet.preprocess_input
+    else:
+        raise ValueError('given model name is not a valid option')
 
-    # resnet50.ResNet50,
-    # resnet50.preprocess_input,
-
-    # mobilenet.MobileNet,
-    # mobilenet.preprocess_input,
-
-    print(find_closest(mobilenet.MobileNet,
-                       mobilenet.preprocess_input,
+    # do the magic:
+    print(find_closest(model,
+                       preprocess_fun,
                        args.include_top,
                        CARD_DATA_DIR,
                        args.image_path,
