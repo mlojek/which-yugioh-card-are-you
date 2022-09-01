@@ -4,6 +4,7 @@ import shutil
 import cv2
 import numpy as np
 import pandas as pd
+from tqdm import tqdm
 from tensorflow.keras.applications import vgg16, resnet50, mobilenet
 
 from prodeck_api import make_local_copy, check_local_copy
@@ -161,8 +162,52 @@ def find_closest_neighbor_by_features(model: callable, preprocess_function: call
     return closest_name, closest_value
 
 
-def find_closest(model: callable, preprocess_function: callable, include_top: bool, data_dir_path: str, image_path: str):
-    pass
+def find_closest(model: callable, preprocess_function: callable, include_top_: bool, data_dir_path: str, image_path: str, crop_function: callable) -> str:
+    # initialize the model:
+    net = model(weights='imagenet', include_top=include_top_)
+
+    # read, crop and resize the image:
+    image = cv2.imread(image_path)
+    image = crop_function(image)
+    image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_LINEAR)
+
+    # extract features:
+    x = np.array(image)
+    x = np.expand_dims(x, axis=0)
+    x = preprocess_function(x)
+    image_features = net.predict(x, verbose=0).flatten()
+
+    # init best match variables:
+    closest_name = 'none'
+    closest_value = np.inf
+
+    # read in card data:
+    cards = pd.read_csv(os.path.join(data_dir_path, CARD_DATA_FILE))
+
+    # find the closest match:
+    for i in tqdm(range(cards.shape[0]), desc="Finding the best match...", ncols=80):
+        # read, crop and resize the card image:
+        image_name = str(cards['id'].iloc[i]) + '.jpg'
+        card_image = cv2.imread(os.path.join(data_dir_path, image_name))
+        card_image = crop_function(card_image)
+        card_image = cv2.resize(card_image, (224, 224), interpolation=cv2.INTER_LINEAR)
+
+        # extract card's features:
+        x = np.array(card_image)
+        x = np.expand_dims(x, axis=0)
+        x = preprocess_function(x)
+        card_features = net.predict(x, verbose=0).flatten()
+
+        # compare image and card features:
+        distance = sum((image_features - card_features)**2)
+
+        # if the distance is a new record, make it the new best match:
+        if distance < closest_value:
+            closest_name = image_name
+            closest_value = distance
+
+    # return info about the closest match:
+    return closest_name, closest_value
 
 
 if __name__ == '__main__':
@@ -205,8 +250,9 @@ if __name__ == '__main__':
     #                                         CARD_DATA_DIR,
     #                                         cv2.imread('charmander.jpg')))
 
+    # print(predict_imagenet_classes_dir(vgg16.VGG16,
+    #                                    vgg16.preprocess_input,
+    #                                    CARD_DATA_DIR,
+    #                                    cv2.imread('images/charmander.jpg')))
 
-    print(predict_imagenet_classes_dir(vgg16.VGG16,
-                                       vgg16.preprocess_input,
-                                       CARD_DATA_DIR,
-                                       cv2.imread('images/charmander.jpg')))
+    print(find_closest(vgg16.VGG16, vgg16.preprocess_input, True, CARD_DATA_DIR, 'images/charmander.jpg', dumb_crop))
