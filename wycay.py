@@ -19,7 +19,6 @@ def find_closest(model: callable, preprocess_function: callable, include_top_: b
 
     # read, crop and resize the image:
     image = cv2.imread(image_path)
-    image = crop_function(image)
     image = cv2.resize(image, (224, 224), interpolation=cv2.INTER_LINEAR)
 
     # extract features:
