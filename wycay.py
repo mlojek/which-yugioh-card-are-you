@@ -116,8 +116,17 @@ if __name__ == '__main__':
         # make a local copy of card data:
         make_local_copy(CARD_DATA_DIR)
 
-    print(find_closest(vgg16.VGG16,
-                       vgg16.preprocess_input,
+    # vgg16.VGG16
+    # vgg16.preprocess_input
+
+    # resnet50.ResNet50
+    # resnet50.preprocess_input
+
+    # mobilenet.MobileNet
+    # mobilenet.preprocess_input
+
+    print(find_closest(mobilenet.MobileNet,
+                       mobilenet.preprocess_input,
                        True,
                        CARD_DATA_DIR,
                        'images/charmander.jpg',
