@@ -38,7 +38,7 @@ def extract_features(model: callable, preprocess_function: callable, image: np.n
     return net.predict(x).flatten()
 
 
-def predict_imagenet_classes(model: callable, preprocess_function: callable, image:np.ndarray) -> np.ndarray:
+def predict_imagenet_classes(model: callable, preprocess_function: callable, image: np.ndarray) -> np.ndarray:
     '''
     Predict imagenet set classes for a given image using a given model.
     Regardless of the model used the ouput will always have shape (1000)
