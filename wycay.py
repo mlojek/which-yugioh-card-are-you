@@ -12,52 +12,6 @@ from crop import dumb_crop
 from config import CARD_DATA_DIR, CARD_DATA_FILE
 
 
-def extract_features(model: callable, preprocess_function: callable, image: np.ndarray) -> np.ndarray:
-    '''
-    Extract features from a given image using a pretrained model.
-    Input shape does not matter, but the output will depend on the model.
-
-    | model     | output len |
-    |-----------|------------|
-    | vgg16     | 25088      |
-    | mobilenet | 50176      |
-    | resnet50  | 100352     |
-    '''
-    # initialize the model:
-    net = model(weights='imagenet', include_top=False)
-
-    # resize the image to match the model's input size:
-    img = cv2.resize(image, (224, 224), interpolation=cv2.INTER_LINEAR)
-
-    # necessary preprocessing:
-    x = np.array(img)
-    x = np.expand_dims(x, axis=0)
-    x = preprocess_function(x)
-
-    # predict the features and return:
-    return net.predict(x).flatten()
-
-
-def predict_imagenet_classes(model: callable, preprocess_function: callable, image: np.ndarray) -> np.ndarray:
-    '''
-    Predict imagenet set classes for a given image using a given model.
-    Regardless of the model used the ouput will always have shape (1000)
-    '''
-    # initialize the model:
-    net = model(weights='imagenet')
-
-    # resize the image to match the model's input size:
-    img = cv2.resize(image, (224, 224), interpolation=cv2.INTER_LINEAR)
-
-    # necessary preprocessing:
-    x = np.array(img)
-    x = np.expand_dims(x, axis=0)
-    x = preprocess_function(x)
-
-    # predict the features and return:
-    return net.predict(x).flatten()
-
-
 def find_closest(model: callable, preprocess_function: callable, include_top_: bool, data_dir_path: str, image_path: str, crop_function: callable) -> str:
     # initialize the model:
     net = model(weights='imagenet', include_top=include_top_)
