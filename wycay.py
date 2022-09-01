@@ -161,6 +161,10 @@ def find_closest_neighbor_by_features(model: callable, preprocess_function: call
     return closest_name, closest_value
 
 
+def find_closest(model: callable, preprocess_function: callable, include_top: bool, data_dir_path: str, image_path: str):
+    pass
+
+
 if __name__ == '__main__':
     # if local card data not there/not valid:
     if not check_local_copy(CARD_DATA_DIR):
