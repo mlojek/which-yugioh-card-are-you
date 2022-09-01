@@ -13,7 +13,9 @@ Then I had to figure out a way to crop the images from the cards. I wanted to do
 
 Since every card is its own class, there is no point in retraining the net's top.
 
-## Results charmander:
+## Results:
+Test image:  
+<img src="images/charmander.jpg" width="200"/>  
 
 | Model used    | include_top = True                                                                | include_top = False                                                               |
 |---------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
@@ -21,13 +23,14 @@ Since every card is its own class, there is no point in retraining the net's top
 | ResNet50      | <img src="https://images.ygoprodeck.com/images/cards/58873391.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/57523313.jpg" width="200"/>  |
 | MobileNet     | <img src="https://images.ygoprodeck.com/images/cards/52158283.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/15052462.jpg" width="200"/>  |
 
-## Results fresh cut:
+Test image:  
+<img src="images/a-fresh-cut.png" width="200"/>  
 
-| Model used    | include_top = True                            | include_top = False                           |
-|---------------|-----------------------------------------------|-----------------------------------------------|
-| VGG16         | <img src="cards/44209392.jpg" width="200"/>   | <img src="cards/.jpg" width="200"/>   |
-| ResNet50      | <img src="cards/.jpg" width="200"/>   | <img src="cards/.jpg" width="200"/>   |
-| MobileNet     | <img src="cards/.jpg" width="200"/>   | <img src="cards/.jpg" width="200"/>   |
+| Model used    | include_top = True                                                                | include_top = False                                                               |
+|---------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| VGG16         | <img src="https://images.ygoprodeck.com/images/cards/44209392.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/54766667.jpg" width="200"/>  |
+| ResNet50      | <img src="https://images.ygoprodeck.com/images/cards/38528901.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/73680966.jpg" width="200"/>  |
+| MobileNet     | <img src="https://images.ygoprodeck.com/images/cards/41927278.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/101109090.jpg" width="200"/>   |
 
 ## Final thoughts:
 
