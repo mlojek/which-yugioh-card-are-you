@@ -33,9 +33,9 @@ Test image:
 
 | Model used    | include_top = True                                                                | include_top = False                                                               |
 |---------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| VGG16         | <img src="https://images.ygoprodeck.com/images/cards/.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/.jpg" width="200"/>  |
-| ResNet50      | <img src="https://images.ygoprodeck.com/images/cards/.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/.jpg" width="200"/>  |
-| MobileNet     | <img src="https://images.ygoprodeck.com/images/cards/.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/.jpg" width="200"/>  |
+| VGG16         | <img src="https://images.ygoprodeck.com/images/cards/93451636.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/54766667.jpg" width="200"/>  |
+| ResNet50      | <img src="https://images.ygoprodeck.com/images/cards/52558805.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/82134632.jpg" width="200"/>  |
+| MobileNet     | <img src="https://images.ygoprodeck.com/images/cards/87182127.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/8175346.jpg" width="200"/>  |
 
 Test image:  
 <img src="images/a-fresh-cut.png" width="200"/>  
@@ -47,7 +47,7 @@ Test image:
 | MobileNet     | <img src="https://images.ygoprodeck.com/images/cards/.jpg" width="200"/>  | <img src="https://images.ygoprodeck.com/images/cards/.jpg" width="200"/>   |
 
 ## Conclusions:
-None of the predictions were even close to being acceptable.
+
 
 ## Credits and resources:
 - [The "pot of greed" meme](https://youtu.be/4guF2x-mzBI?t=247). This is where I saw it for the first time, although it's not the meme's origin. I couldn't find the original.
